@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Resource Directory</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Local Resource Directory</h1>
+            <form id="search-form">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Search resources..." 
+                        required 
+                        aria-label="Search resources"
+                    >
+                    <select 
+                        id="category-filter" 
+                        required 
+                        aria-label="Select resource category"
+                    >
+                        <option value="">Select Category</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Education">Education</option>
+                        <option value="Food Assistance">Food Assistance</option>
+                        <option value="Employment">Employment</option>
+                        <option value="Housing">Housing</option>
+                    </select>
+                    <button type="submit">Search</button>
+                </div>
+            </form>
+        
+        </header>
+
+        <main>
+            <div id="resources-container">
+                <!-- Resources will be dynamically loaded here by JavaScript -->
+            </div>
+        </main>
+
+        <div id="resource-details-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div id="resource-details">
+                    <!-- Detailed resource information will be displayed here -->
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Local Resource Directory</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
