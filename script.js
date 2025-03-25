@@ -279,7 +279,7 @@ function validateRegistrationForm() {
 
     // ID Number Validation (example: assuming 9-12 characters)
     if (!/^\d{9,12}$/.test(idNumber.value)) {
-        alert('Please enter a valid ID number (9-12 digits)');
+        alert('Please enter a valid ID number (8 digits)');
         idNumber.focus();
         return false;
     }
