@@ -1,4 +1,3 @@
-let resources = [];
 
 // DOM Element Selectors
 const searchInput = document.getElementById('search-input');
@@ -13,8 +12,10 @@ const openRegistrationBtn = document.getElementById('open-registration-btn');
 const closeRegistrationModalBtn = document.getElementById('close-registration-modal');
 const registrationForm = document.getElementById('registration-form');
 
+let resources = [];
+
 // Configuration
-const API_URL = 'http://localhost:3000/resources'; // Backend API endpoint
+const API_URL = 'http://localhost:3000/resources';
 
 // Load resources when the page loads
 document.addEventListener('DOMContentLoaded', () => {
@@ -215,10 +216,7 @@ async function addLike(resourceId) {
 // Open Comment Section (Placeholder - would be implemented with backend)
 function openCommentSection(resourceId) {
     alert('Comment section coming soon! This would typically open a form to add comments.');
-    // In a full implementation, this would:
-    // 1. Fetch existing comments
-    // 2. Show a comment input form
-    // 3. Allow submitting new comments
+ 
 }
 
 // User Registration Form Submission
