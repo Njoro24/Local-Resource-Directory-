@@ -12,19 +12,17 @@
             <h1>Local Resource Directory</h1>
             <form id="search-form">
                 <div class="search-container">
-                    <input 
-                        type="text" 
-                        id="search-input" 
-                        placeholder="Search resources..." 
-                        required 
+                    <input
+                        type="text"
+                        id="search-input"
+                        placeholder="Search resources..."
                         aria-label="Search resources"
                     >
-                    <select 
-                        id="category-filter" 
-                        required 
+                    <select
+                        id="category-filter"
                         aria-label="Select resource category"
                     >
-                        <option value="">Select Category</option>
+                        <option value="">All Categories</option>
                         <option value="Healthcare">Healthcare</option>
                         <option value="Education">Education</option>
                         <option value="Food Assistance">Food Assistance</option>
@@ -34,21 +32,88 @@
                     <button type="submit">Search</button>
                 </div>
             </form>
-        
         </header>
-
+        
         <main>
             <div id="resources-container">
                 <!-- Resources will be dynamically loaded here by JavaScript -->
             </div>
+
+            <!-- Register Now Button -->
+            <button id="open-registration-btn" class="register-now-btn">Register Now</button>
         </main>
 
+        <!-- Resource Details Modal -->
         <div id="resource-details-modal" class="modal">
             <div class="modal-content">
                 <span class="close-modal">&times;</span>
                 <div id="resource-details">
                     <!-- Detailed resource information will be displayed here -->
                 </div>
+            </div>
+        </div>
+
+        <!-- Registration Modal -->
+        <div id="registration-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-registration-modal" class="close-modal">&times;</span>
+                <section id="registration-section">
+                    <h2>User Registration</h2>
+                    <form id="registration-form">
+                        <div class="form-group">
+                            <label for="full-name">Full Name</label>
+                            <input 
+                                type="text" 
+                                id="full-name" 
+                                name="full-name" 
+                                required 
+                                placeholder="Enter your full name"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="id-number">ID Number</label>
+                            <input 
+                                type="text" 
+                                id="id-number" 
+                                name="id-number" 
+                                required 
+                                placeholder="Enter your ID number"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone-contact">Phone Contact</label>
+                            <input 
+                                type="tel" 
+                                id="phone-contact" 
+                                name="phone-contact" 
+                                required 
+                                placeholder="Enter your phone number"
+                                pattern="[0-9]{10}"
+                                title="Phone number must be 10 digits"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="interests">Interested Categories</label>
+                            <select 
+                                id="interests" 
+                                name="interests" 
+                                multiple 
+                                required
+                            >
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Food Assistance">Food Assistance</option>
+                                <option value="Employment">Employment</option>
+                                <option value="Housing">Housing</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="register-btn">Register</button>
+                    </form>
+                </section>
             </div>
         </div>
 
