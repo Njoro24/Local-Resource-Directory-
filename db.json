@@ -4,7 +4,7 @@
       "name": "Community Health Clinic",
       "category": "Healthcare",
       "type": "Medical Facility",
-      "address": "123 Wellness Street, Cityville, ST 12345",
+      "address": "",
       "phone": "(555) 123-4567",
       "website": "www.communityhealthclinic.org",
       "hours": {
@@ -30,7 +30,7 @@
       "name": "Downtown Public Library",
       "category": "Education",
       "type": "Public Library",
-      "address": "456 Knowledge Avenue, Cityville, ST 12345",
+      "address": "",
       "phone": "(555) 987-6543",
       "website": "www.downtownlibrary.org",
       "hours": {
@@ -57,7 +57,7 @@
       "name": "Community Food Bank",
       "category": "Food Assistance",
       "type": "Non-Profit",
-      "address": "789 Hunger Relief Road, Cityville, ST 12345",
+      "address": "",
       "phone": "(555) 246-8101",
       "website": "www.communityfoodbank.org",
       "hours": {
@@ -83,7 +83,7 @@
       "name": "Career Development Center",
       "category": "Employment",
       "type": "Job Resource",
-      "address": "101 Opportunity Lane, Cityville, ST 12345",
+      "address": "",
       "phone": "(555) 135-7910",
       "website": "www.careerdevelopmentcenter.org",
       "hours": {
@@ -110,7 +110,7 @@
       "name": "Safe Haven Shelter",
       "category": "Housing",
       "type": "Emergency Shelter",
-      "address": "202 Refuge Street, Cityville, ST 12345",
+      "address": "",
       "phone": "(555) 369-2580",
       "website": "www.safehavenshelter.org",
       "hours": {
