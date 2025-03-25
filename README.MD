@@ -17,7 +17,7 @@ A web application designed to help users discover and access local resources eas
 
 ### ✅ Prerequisites
 - 🌐 Web browser
-- 📝 Text editor (VS Code recommended)
+- 📝 VS Code (recommended)
 
 ### 📦 Installation
 
@@ -29,7 +29,7 @@ A web application designed to help users discover and access local resources eas
 local-resource-directory/
 │
 ├── index.html        # Main HTML file
-├── styles.css        # CSS styling
+├── style.css        # CSS styling
 ├── script.js         # JavaScript functionality
 └── resources.json    # Resource data storage
 
@@ -43,11 +43,11 @@ Apply filters to narrow down results.
 Explore local resources.
 
 🛠️ Technologies Used
-🌍 HTML5
+🌍 HTML
 
-🎨 CSS3
+🎨 CSS
 
-⚡ Vanilla JavaScript
+⚡ JavaScript
 
 📜 JSON
 

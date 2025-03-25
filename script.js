@@ -10,6 +10,8 @@ const resourceDetailsModal = document.getElementById('resource-details-modal');
 const resourceDetails = document.getElementById('resource-details');
 const closeModalBtn = document.querySelector('.close-modal');
 
+//http://localhost:3000/resources
+
 // Load resources when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     loadResources();
@@ -41,9 +43,9 @@ function createResourceCard(resource) {
     return card;
 }
 
-// Display resources
+// Display resources and Clear previous results
 function displayResources(resourceList) {
-    resourcesContainer.innerHTML = ''; // Clear previous results
+    resourcesContainer.innerHTML = ''; 
     
     if (resourceList.length === 0) {
         resourcesContainer.innerHTML = '<p>No resources found.</p>';
