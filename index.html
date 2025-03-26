@@ -4,122 +4,168 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Local Resource Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Local Resource Directory</h1>
-            <form id="search-form">
-                <div class="search-container">
-                    <input
-                        type="text"
-                        id="search-input"
-                        placeholder="Search resources..."
-                        aria-label="Search resources"
-                    >
-                    <select
-                        id="category-filter"
-                        aria-label="Select resource category"
-                    >
-                        <option value="">All Categories</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option value="Education">Education</option>
-                        <option value="Food Assistance">Food Assistance</option>
-                        <option value="Employment">Employment</option>
-                        <option value="Housing">Housing</option>
-                    </select>
-                    <button type="submit">Search</button>
-                </div>
-            </form>
-        </header>
+    <div class="page-container">
+        <nav class="navbar">
+            <div class="logo">Local Resource Directory</div>
+            <button class="register-button">Register</button>
+        </nav>
         
-        <main>
-            <div id="resources-container">
-                <!-- Resources will be dynamically loaded here by JavaScript -->
-            </div>
-
-            <!-- Register Now Button -->
-            <button id="open-registration-btn" class="register-now-btn">Register Now</button>
-        </main>
-
-        <!-- Resource Details Modal -->
-        <div id="resource-details-modal" class="modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <div id="resource-details">
-                    <!-- Detailed resource information will be displayed here -->
+        <main class="main-content">
+            <div class="content-wrapper">
+                <h1>Connect with Local Resources</h1>
+                <p>Discover essential community services right at your fingertips. From healthcare to housing, we're here to help you find the support you need.</p>
+                
+                <div class="cta-buttons">
+                    <button class="btn btn-primary">Explore Resources</button>
+                    <button class="btn btn-secondary">Learn More</button>
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">📍</div>
+                        <h3>Local Services</h3>
+                        <p>Comprehensive directory of community resources</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">❤️</div>
+                        <h3>Community Support</h3>
+                        <p>Connecting you with essential help</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">❓</div>
+                        <h3>Easy Access</h3>
+                        <p>Simple, user-friendly resource finder</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">➡️</div>
+                        <h3>Quick Navigation</h3>
+                        <p>Find what you need in seconds</p>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Registration Modal -->
-        <div id="registration-modal" class="modal">
-            <div class="modal-content">
-                <span id="close-registration-modal" class="close-modal">&times;</span>
-                <section id="registration-section">
-                    <h2>User Registration</h2>
-                    <form id="registration-form">
-                        <div class="form-group">
-                            <label for="full-name">Full Name</label>
-                            <input 
-                                type="text" 
-                                id="full-name" 
-                                name="full-name" 
-                                required 
-                                placeholder="Enter your full name"
-                            >
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="id-number">ID Number</label>
-                            <input 
-                                type="text" 
-                                id="id-number" 
-                                name="id-number" 
-                                required 
-                                placeholder="Enter your ID number"
-                            >
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone-contact">Phone Contact</label>
-                            <input 
-                                type="tel" 
-                                id="phone-contact" 
-                                name="phone-contact" 
-                                required 
-                                placeholder="Enter your phone number"
-                                pattern="[0-9]{10}"
-                                title="Phone number must be 10 digits"
-                            >
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="interests">Interested Categories</label>
-                            <select 
-                                id="interests" 
-                                name="interests" 
-                                multiple 
-                                required
-                            >
-                                <option value="Healthcare">Healthcare</option>
-                                <option value="Education">Education</option>
-                                <option value="Food Assistance">Food Assistance</option>
-                                <option value="Employment">Employment</option>
-                                <option value="Housing">Housing</option>
-                            </select>
-                        </div>
-                        
-                        <button type="submit" class="register-btn">Register</button>
-                    </form>
-                </section>
-            </div>
-        </div>
-
-        <footer>
+        </main>
+        
+        <footer class="page-footer">
             <p>&copy; 2025 Local Resource Directory</p>
         </footer>
+    </div>
+
+    <div id="resource-directory" class="resource-section" style="display: none;">
+        <div class="container">
+            <header>
+                <h1>Local Resource Directory</h1>
+                <form id="search-form">
+                    <div class="search-container">
+                        <input
+                            type="text"
+                            id="search-input"
+                            placeholder="Search resources..."
+                            aria-label="Search resources"
+                        >
+                        <select
+                            id="category-filter"
+                            aria-label="Select resource category"
+                        >
+                            <option value="">All Categories</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Food Assistance">Food Assistance</option>
+                            <option value="Employment">Employment</option>
+                            <option value="Housing">Housing</option>
+                        </select>
+                        <button type="submit">Search</button>
+                    </div>
+                </form>
+            </header>
+            
+            <main>
+                <div id="resources-container">
+                    <!-- Resources will be dynamically loaded here by JavaScript -->
+                </div>
+
+                
+            </main>
+
+            <div id="resource-details-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div id="resource-details">
+                        <!-- Detailed resource information will be displayed here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="registration-modal" class="modal">
+                <div class="modal-content">
+                    <span id="close-registration-modal" class="close-modal">&times;</span>
+                    <section id="registration-section">
+                        <h2>User Registration</h2>
+                        <form id="registration-form">
+                            <div class="form-group">
+                                <label for="full-name">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    id="full-name" 
+                                    name="full-name" 
+                                    required 
+                                    placeholder="Enter your full name"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="id-number">ID Number</label>
+                                <input 
+                                    type="text" 
+                                    id="id-number" 
+                                    name="id-number" 
+                                    required 
+                                    placeholder="Enter your ID number"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone-contact">Phone Contact</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone-contact" 
+                                    name="phone-contact" 
+                                    required 
+                                    placeholder="Enter your phone number"
+                                    pattern="[0-9]{10}"
+                                    title="Phone number must be 10 digits"
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="interests">Interested Categories</label>
+                                <select 
+                                    id="interests" 
+                                    name="interests" 
+                                    multiple 
+                                    required
+                                >
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Food Assistance">Food Assistance</option>
+                                    <option value="Employment">Employment</option>
+                                    <option value="Housing">Housing</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="register-btn">Register</button>
+                        </form>
+                    </section>
+                </div>
+            </div>
+
+            <footer>
+                <p>&copy; 2025 Local Resource Directory</p>
+            </footer>
+        </div>
     </div>
 
     <script src="script.js"></script>

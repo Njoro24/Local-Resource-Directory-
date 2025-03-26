@@ -1,6 +1,8 @@
 {
+
   "resources": [
     {
+      "id": 1,
       "name": "Community Health Clinic",
       "category": "Healthcare",
       "type": "Medical Facility",
@@ -24,9 +26,11 @@
       ],
       "tags": ["free", "low-cost", "healthcare", "medical"],
       "longitude": -74.006,
-      "latitude": 40.7128
+      "latitude": 40.7128,
+      "likes": 0
     },
     {
+      "id": 2,
       "name": "Downtown Public Library",
       "category": "Education",
       "type": "Public Library",
@@ -51,9 +55,11 @@
       ],
       "tags": ["free", "education", "internet", "computers"],
       "longitude": -73.985,
-      "latitude": 40.7484
+      "latitude": 40.7484,
+      "likes": 0
     },
     {
+      "id": 3,
       "name": "Community Food Bank",
       "category": "Food Assistance",
       "type": "Non-Profit",
@@ -77,9 +83,11 @@
       ],
       "tags": ["free", "food", "assistance", "hunger-relief"],
       "longitude": -74.043,
-      "latitude": 40.6782
+      "latitude": 40.6782,
+      "likes": 0
     },
     {
+      "id": 4,
       "name": "Career Development Center",
       "category": "Employment",
       "type": "Job Resource",
@@ -104,9 +112,11 @@
       ],
       "tags": ["free", "jobs", "employment", "training"],
       "longitude": -74.001,
-      "latitude": 40.7295
+      "latitude": 40.7295,
+      "likes": 0
     },
     {
+      "id": 5,
       "name": "Safe Haven Shelter",
       "category": "Housing",
       "type": "Emergency Shelter",
@@ -131,7 +141,10 @@
       ],
       "tags": ["housing", "emergency", "shelter", "support"],
       "longitude": -73.976,
-      "latitude": 40.7589
+      "latitude": 40.7589,
+      "likes": 0
     }
-  ]
+  ],
+  "registrations": []
 }
+  

@@ -1,27 +1,134 @@
-
-// DOM Element Selectors
-const searchInput = document.getElementById('search-input');
-const categoryFilter = document.getElementById('category-filter');
-const resourcesContainer = document.getElementById('resources-container');
-const searchForm = document.getElementById('search-form');
-const resourceDetailsModal = document.getElementById('resource-details-modal');
-const resourceDetails = document.getElementById('resource-details');
-const closeModalBtn = document.querySelector('.close-modal');
-const registrationModal = document.getElementById('registration-modal');
-const openRegistrationBtn = document.getElementById('open-registration-btn');
-const closeRegistrationModalBtn = document.getElementById('close-registration-modal');
-const registrationForm = document.getElementById('registration-form');
-
-let resources = [];
-
 // Configuration
 const API_URL = 'http://localhost:3000/resources';
 
-// Load resources when the page loads
-document.addEventListener('DOMContentLoaded', () => {
-    loadResources();
-    setupEventListeners();
-});
+// DOM Element Selectors
+const resourceDirectory = document.getElementById('resource-directory');
+const resourcesContainer = document.getElementById('resources-container');
+const searchInput = document.getElementById('search-input');
+const categoryFilter = document.getElementById('category-filter');
+const searchForm = document.getElementById('search-form');
+const resourceDetailsModal = document.getElementById('resource-details-modal');
+const resourceDetails = document.getElementById('resource-details');
+const registrationModal = document.getElementById('registration-modal');
+const registrationForm = document.getElementById('registration-form');
+
+// Navigation Elements
+const exploreResourcesBtn = document.querySelector('.btn-primary');
+const landingRegisterBtn = document.querySelector('.register-button');
+const openRegistrationBtn = document.getElementById('open-registration-btn');
+const closeRegistrationModalBtn = document.getElementById('close-registration-modal');
+const learnMoreBtn = document.querySelector('.btn-secondary');
+const closeModalBtns = document.querySelectorAll('.close-modal');
+
+let resources = [];
+
+// Navigation Functions
+function showResourceDirectory() {
+    document.querySelector('.main-content').style.display = 'none';
+    resourceDirectory.style.display = 'block';
+}
+
+function showLandingPage() {
+    document.querySelector('.main-content').style.display = 'block';
+    resourceDirectory.style.display = 'none';
+}
+
+// Close Modal Function
+function closeModal(modalElement) {
+    if (modalElement) {
+        modalElement.style.display = 'none';
+    }
+}
+
+// Event Listeners Setup
+function setupEventListeners() {
+    // Explore Resources Button
+    if (exploreResourcesBtn) {
+        exploreResourcesBtn.addEventListener('click', showResourceDirectory);
+    }
+
+    // Register Buttons
+    if (landingRegisterBtn) {
+        landingRegisterBtn.addEventListener('click', () => {
+            showResourceDirectory();
+            registrationModal.style.display = 'block';
+        });
+    }
+
+    // Open Registration Button
+    if (openRegistrationBtn) {
+        openRegistrationBtn.addEventListener('click', () => {
+            registrationModal.style.display = 'block';
+        });
+    }
+
+    // Close Modal Buttons
+    closeModalBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const modal = e.target.closest('.modal');
+            closeModal(modal);
+        });
+    });
+
+    // Learn More Button
+    if (learnMoreBtn) {
+        learnMoreBtn.addEventListener('click', () => {
+            alert('More information about Local Resource Directory coming soon!');
+        });
+    }
+
+    // Search Form
+    if (searchForm) {
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            filterResources();
+        });
+    }
+
+    // Real-time filtering
+    if (searchInput) {
+        searchInput.addEventListener('input', filterResources);
+    }
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', filterResources);
+    }
+
+    // Registration Form
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', handleRegistration);
+    }
+}
+
+// Handle User Registration
+function handleRegistration(e) {
+    e.preventDefault();
+    
+    const fullName = document.getElementById('full-name').value;
+    const idNumber = document.getElementById('id-number').value;
+    const phoneContact = document.getElementById('phone-contact').value;
+    const interests = Array.from(document.getElementById('interests').selectedOptions)
+        .map(option => option.value);
+
+    // Basic validation
+    if (!fullName || !idNumber || !phoneContact || interests.length === 0) {
+        alert('Please fill in all required fields');
+        return;
+    }
+
+    const registrationData = {
+        fullName,
+        idNumber,
+        phoneContact,
+        interests
+    };
+
+    // TODO: Implement actual registration logic (e.g., API call)
+    console.log('Registration Data:', registrationData);
+    alert('Registration submitted successfully!');
+    
+    // Close registration modal
+    closeModal(registrationModal);
+}
 
 // Fetch resources from API
 async function loadResources() {
@@ -32,103 +139,26 @@ async function loadResources() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        const data = await response.json();
-        resources = data;
+        resources = await response.json();
         displayResources(resources);
+        populateCategoryFilter(resources);
     } catch (error) {
         console.error('Error loading resources:', error);
-        resourcesContainer.innerHTML = `
-            <div class="error-message">
-                <p>Error loading resources. Please try again later.</p>
-                <p>${error.message}</p>
-            </div>
-        `;
+        if (resourcesContainer) {
+            resourcesContainer.innerHTML = `
+                <div class="error-message">
+                    <p>Error loading resources. Please try again later.</p>
+                    <p>${error.message}</p>
+                </div>
+            `;
+        }
     }
 }
 
-// Create resource card HTML
-function createResourceCard(resource) {
-    const card = document.createElement('div');
-    card.classList.add('resource-card');
-    card.innerHTML = `
-        <h2>${resource.name}</h2>
-        <p class="category">${resource.category}</p>
-        <p class="services">
-            <strong>Services:</strong> 
-            ${resource.services ? resource.services.slice(0, 3).join(', ') : 'No services listed'}
-        </p>
-        <div class="resource-actions">
-            <button onclick="showResourceDetails(${resource.id})">View Details</button>
-            <button onclick="addLike(${resource.id})">
-                👍 Like (${resource.likes || 0})
-            </button>
-        </div>
-    `;
-    return card;
-}
-
-// Display resources and handle empty results
-function displayResources(resourceList) {
-    resourcesContainer.innerHTML = ''; 
-    
-    if (!resourceList || resourceList.length === 0) {
-        resourcesContainer.innerHTML = `
-            <div class="no-results">
-                <p>No resources found.</p>
-                <p>Try adjusting your search or filter.</p>
-            </div>
-        `;
-        return;
-    }
-
-    resourceList.forEach(resource => {
-        const card = createResourceCard(resource);
-        resourcesContainer.appendChild(card);
-    });
-}
-
-// Setup event listeners
-function setupEventListeners() {
-    // Search form submission
-    searchForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        filterResources();
-    });
-
-    // Real-time filtering
-    searchInput.addEventListener('input', filterResources);
-    categoryFilter.addEventListener('change', filterResources);
-
-    // Close resource details modal when clicking outside
-    resourceDetailsModal.addEventListener('click', (e) => {
-        if (e.target === resourceDetailsModal) {
-            resourceDetailsModal.style.display = 'none';
-        }
-    });
-
-    // Close resource details modal button
-    closeModalBtn.addEventListener('click', () => {
-        resourceDetailsModal.style.display = 'none';
-    });
-
-    // Registration Modal Event Listeners
-    openRegistrationBtn.addEventListener('click', () => {
-        registrationModal.style.display = 'block';
-    });
-
-    closeRegistrationModalBtn.addEventListener('click', () => {
-        registrationModal.style.display = 'none';
-    });
-
-    registrationModal.addEventListener('click', (e) => {
-        if (e.target === registrationModal) {
-            registrationModal.style.display = 'none';
-        }
-    });
-}
-
-// Search and Filter
+// Filter resources based on search and category
 function filterResources() {
+    if (!searchInput || !categoryFilter) return;
+
     const searchTerm = searchInput.value.toLowerCase().trim();
     const categoryTerm = categoryFilter.value;
 
@@ -149,8 +179,144 @@ function filterResources() {
     displayResources(filteredResources);
 }
 
+// Populate Category Filter Dropdown
+function populateCategoryFilter(resourceList) {
+    if (!categoryFilter) return;
+
+    const uniqueCategories = [...new Set(resourceList.map(resource => resource.category))];
+    categoryFilter.innerHTML = '<option value="">All Categories</option>';
+    uniqueCategories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category;
+        option.textContent = category;
+        categoryFilter.appendChild(option);
+    });
+}
+
+// Display resources
+function displayResources(resourceList) {
+    if (!resourcesContainer) return;
+
+    resourcesContainer.innerHTML = ''; 
+    
+    if (!resourceList || resourceList.length === 0) {
+        resourcesContainer.innerHTML = `
+            <div class="no-results">
+                <p>No resources found.</p>
+                <p>Try adjusting your search or filter.</p>
+            </div>
+        `;
+        return;
+    }
+
+    resourceList.forEach(resource => {
+        const card = createResourceCard(resource);
+        resourcesContainer.appendChild(card);
+    });
+}
+
+// Create resource card
+function createResourceCard(resource) {
+    const card = document.createElement('div');
+    card.classList.add('resource-card');
+    card.innerHTML = `
+        <h2>${resource.name}</h2>
+        <p class="category">${resource.category}</p>
+        <p class="services">
+            <strong>Services:</strong> 
+            ${resource.services ? resource.services.slice(0, 3).join(', ') : 'No services listed'}
+        </p>
+        <div class="resource-actions">
+            <button onclick="showResourceDetails(${resource.id})">View Details</button>
+            <button onclick="addLike(${resource.id})">
+                👍 Like (${resource.likes || 0})
+            </button>
+        </div>
+        
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h3>Comments</h3>
+            <div class="comments-list" id="comments-${resource.id}">
+                ${resource.comments && resource.comments.length > 0 
+                    ? resource.comments.map(comment => `
+                        <div class="comment">
+                            <p class="comment-text">${comment.text}</p>
+                            <div class="comment-meta">
+                                <span class="comment-author">${comment.author}</span>
+                                <span class="comment-date">${formatDate(comment.date)}</span>
+                            </div>
+                        </div>
+                    `).join('') 
+                    : '<p class="no-comments">No comments yet</p>'
+                }
+            </div>
+            <div class="add-comment">
+                <textarea 
+                    id="comment-input-${resource.id}" 
+                    placeholder="Add a comment..."
+                ></textarea>
+                <button onclick="submitComment(${resource.id})">Post Comment</button>
+            </div>
+        </div>
+    `;
+    return card;
+}
+
+// Function to format date
+function formatDate(date) {
+    return new Date(date).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    });
+}
+
+// Submit comment function
+function submitComment(resourceId) {
+    const commentInput = document.getElementById(`comment-input-${resourceId}`);
+    const commentText = commentInput.value.trim();
+    
+    if (!commentText) {
+        alert('Please enter a comment');
+        return;
+    }
+
+    // In a real application, you'd send this to a backend
+    const newComment = {
+        text: commentText,
+        author: 'Anonymous', // In a real app, this would be the logged-in user
+        date: new Date()
+    };
+
+    // Add comment to the comments list
+    const commentsList = document.getElementById(`comments-${resourceId}`);
+    const noCommentsElement = commentsList.querySelector('.no-comments');
+    
+    if (noCommentsElement) {
+        commentsList.innerHTML = ''; // Remove "No comments yet"
+    }
+
+    const commentElement = document.createElement('div');
+    commentElement.classList.add('comment');
+    commentElement.innerHTML = `
+        <p class="comment-text">${newComment.text}</p>
+        <div class="comment-meta">
+            <span class="comment-author">${newComment.author}</span>
+            <span class="comment-date">${formatDate(newComment.date)}</span>
+        </div>
+    `;
+
+    commentsList.appendChild(commentElement);
+    
+    // Clear the input
+    commentInput.value = '';
+}
 // Show Resource Details in Modal
 function showResourceDetails(resourceId) {
+    if (!resourceDetailsModal || !resourceDetails) return;
+
     const resource = resources.find(r => r.id === resourceId);
     
     if (!resource) {
@@ -168,27 +334,6 @@ function showResourceDetails(resourceId) {
                 ? `<a href="${resource.website}" target="_blank" rel="noopener noreferrer">${resource.website}</a>` 
                 : 'Not available'}
         </p>
-        
-        <h3>Services</h3>
-        <ul>
-            ${resource.services 
-                ? resource.services.map(service => `<li>${service}</li>`).join('') 
-                : '<li>No services listed</li>'}
-        </ul>
-        
-        ${resource.hours 
-            ? `<h3>Hours</h3>
-               <ul>
-                   ${Object.entries(resource.hours).map(([day, hours]) => 
-                       `<li><strong>${day.charAt(0).toUpperCase() + day.slice(1)}:</strong> ${hours}</li>`
-                   ).join('')}
-               </ul>` 
-            : ''}
-
-        <div class="resource-modal-actions">
-            <button onclick="addLike(${resource.id})">👍 Like (${resource.likes || 0})</button>
-            <button onclick="openCommentSection(${resource.id})">💬 Comments</button>
-        </div>
     `;
 
     resourceDetailsModal.style.display = 'block';
@@ -205,98 +350,23 @@ async function addLike(resourceId) {
             throw new Error('Failed to add like');
         }
 
-        // Refresh resources or update specific resource
-        await loadResources();
+        const resourceIndex = resources.findIndex(r => r.id === resourceId);
+        if (resourceIndex !== -1) {
+            resources[resourceIndex].likes = (resources[resourceIndex].likes || 0) + 1;
+            displayResources(resources);
+        }
     } catch (error) {
         console.error('Error adding like:', error);
         alert('Failed to add like. Please try again.');
     }
 }
 
-// Open Comment Section (Placeholder - would be implemented with backend)
-function openCommentSection(resourceId) {
-    alert('Comment section coming soon! This would typically open a form to add comments.');
- 
-}
+// Initialize on DOM Content Loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Initial page setup
+    showLandingPage();
 
-// User Registration Form Submission
-registrationForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    // Validate form
-    if (!validateRegistrationForm()) {
-        return;
-    }
-
-    // Collect form data
-    const formData = {
-        fullName: document.getElementById('full-name').value,
-        idNumber: document.getElementById('id-number').value,
-        phoneContact: document.getElementById('phone-contact').value,
-        interests: Array.from(document.getElementById('interests').selectedOptions)
-            .map(option => option.value)
-    };
-
-    try {
-        // Send registration data to backend (placeholder URL)
-        const response = await fetch('http://localhost:3000/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        });
-
-        if (!response.ok) {
-            throw new Error('Registration failed');
-        }
-
-        const result = await response.json();
-        alert('Registration successful! Welcome to our resource directory.');
-        
-        // Reset form and close modal after successful submission
-        registrationForm.reset();
-        registrationModal.style.display = 'none';
-    } catch (error) {
-        console.error('Registration error:', error);
-        alert('Registration failed. Please try again.');
-    }
+    // Load resources and setup event listeners
+    loadResources();
+    setupEventListeners();
 });
-
-// Form Validation Function
-function validateRegistrationForm() {
-    const fullName = document.getElementById('full-name');
-    const idNumber = document.getElementById('id-number');
-    const phoneContact = document.getElementById('phone-contact');
-    const interests = document.getElementById('interests');
-
-    // Full Name Validation
-    if (fullName.value.trim().length < 2) {
-        alert('Please enter a valid full name');
-        fullName.focus();
-        return false;
-    }
-
-    // ID Number Validation (example: assuming 9-12 characters)
-    if (!/^\d{9,12}$/.test(idNumber.value)) {
-        alert('Please enter a valid ID number (8 digits)');
-        idNumber.focus();
-        return false;
-    }
-
-    // Phone Number Validation
-    if (!/^\d{10}$/.test(phoneContact.value)) {
-        alert('Please enter a valid 10-digit phone number');
-        phoneContact.focus();
-        return false;
-    }
-
-    // Interests Validation
-    if (interests.selectedOptions.length === 0) {
-        alert('Please select at least one interest category');
-        interests.focus();
-        return false;
-    }
-
-    return true;
-}
