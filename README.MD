@@ -1,7 +1,7 @@
 # Local Resource Directory
 
 ## 📖 Overview
-A web application designed to help users discover and access local resources easily. This project is built using vanilla HTML, CSS, and JavaScript, making it a great learning tool for web development fundamentals.
+A web application designed to help users discover and access local resources easily. This project is built using HTML, CSS, and JavaScript, making it a great learning tool for web development fundamentals.
 
 ---
 
