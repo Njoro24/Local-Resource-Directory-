@@ -313,6 +313,7 @@ function submitComment(resourceId) {
     // Clear the input
     commentInput.value = '';
 }
+
 // Show Resource Details in Modal
 function showResourceDetails(resourceId) {
     if (!resourceDetailsModal || !resourceDetails) return;
@@ -342,19 +343,39 @@ function showResourceDetails(resourceId) {
 // Add Like to Resource
 async function addLike(resourceId) {
     try {
+        // Find the resource in the local resources array
+        const resourceIndex = resources.findIndex(r => r.id === resourceId);
+        
+        if (resourceIndex === -1) {
+            throw new Error('Resource not found');
+        }
+
+        // Optimistically update the like count
+        resources[resourceIndex].likes = (resources[resourceIndex].likes || 0) + 1;
+        
+        // Update the display to reflect the new like count
+        displayResources(resources);
+
+        // Attempt to send like to the server
         const response = await fetch(`${API_URL}/${resourceId}/like`, {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
 
         if (!response.ok) {
-            throw new Error('Failed to add like');
+            // If server request fails, revert the like
+            resources[resourceIndex].likes--;
+            displayResources(resources);
+            throw new Error('Failed to add like on server');
         }
 
-        const resourceIndex = resources.findIndex(r => r.id === resourceId);
-        if (resourceIndex !== -1) {
-            resources[resourceIndex].likes = (resources[resourceIndex].likes || 0) + 1;
-            displayResources(resources);
-        }
+        // Optionally, handle server response if needed
+        const updatedResource = await response.json();
+        resources[resourceIndex] = updatedResource;
+        displayResources(resources);
+
     } catch (error) {
         console.error('Error adding like:', error);
         alert('Failed to add like. Please try again.');
