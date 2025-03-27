@@ -143,8 +143,28 @@
       "longitude": -73.976,
       "latitude": 40.7589,
       "likes": 0
-    }
+    },
+
+    {
+    "id": 6,
+    "name": "Mental Health Support Center",
+    "category": "Healthcare",
+    "type": "Counseling Services",
+    "address": "",
+    "phone": "(555) 272-9090",
+    "website": "www.mentalhealthsupport.org",
+    "services": [
+      "Individual Counseling",
+      "Group Therapy",
+      "Crisis Intervention",
+      "Mental Health Workshops",
+      "Referral Services"
+    ],
+    "likes": 0
+  }
   ],
   "registrations": []
 }
-  
+
+    
+      
