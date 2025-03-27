@@ -92,7 +92,7 @@ function handleRegistration(e) {
     const interests = Array.from(document.getElementById('interests').selectedOptions)
         .map(option => option.value);
 
-    // Basic validation
+   
     if (!fullName || !idNumber || !phoneContact || interests.length === 0) {
         alert('Please fill in all required fields');
         return;
@@ -333,7 +333,7 @@ async function addLike(resourceId) {
             throw new Error('Resource not found');
         }
 
-        // Optimistically update the like count
+        // Increment the like count locally
         resources[resourceIndex].likes = (resources[resourceIndex].likes || 0) + 1;
         
         // Update the display to reflect the new like count
