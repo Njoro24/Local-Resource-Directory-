@@ -16,7 +16,6 @@ const registrationForm = document.getElementById('registration-form');
 const exploreResourcesBtn = document.querySelector('.btn-primary');
 const landingRegisterBtn = document.querySelector('.register-button');
 const openRegistrationBtn = document.getElementById('open-registration-btn');
-const closeRegistrationModalBtn = document.getElementById('close-registration-modal');
 const learnMoreBtn = document.querySelector('.btn-secondary');
 const closeModalBtns = document.querySelectorAll('.close-modal');
 
@@ -43,24 +42,18 @@ function closeModal(modalElement) {
 // Event Listeners Setup
 function setupEventListeners() {
     // Explore Resources Button
-    if (exploreResourcesBtn) {
-        exploreResourcesBtn.addEventListener('click', showResourceDirectory);
-    }
+    exploreResourcesBtn?.addEventListener('click', showResourceDirectory);
 
     // Register Buttons
-    if (landingRegisterBtn) {
-        landingRegisterBtn.addEventListener('click', () => {
-            showResourceDirectory();
-            registrationModal.style.display = 'block';
-        });
-    }
+    landingRegisterBtn?.addEventListener('click', () => {
+        showResourceDirectory();
+        registrationModal.style.display = 'block';
+    });
 
     // Open Registration Button
-    if (openRegistrationBtn) {
-        openRegistrationBtn.addEventListener('click', () => {
-            registrationModal.style.display = 'block';
-        });
-    }
+    openRegistrationBtn?.addEventListener('click', () => {
+        registrationModal.style.display = 'block';
+    });
 
     // Close Modal Buttons
     closeModalBtns.forEach(btn => {
@@ -71,32 +64,22 @@ function setupEventListeners() {
     });
 
     // Learn More Button
-    if (learnMoreBtn) {
-        learnMoreBtn.addEventListener('click', () => {
-            alert('More information about Local Resource Directory coming soon!');
-        });
-    }
+    learnMoreBtn?.addEventListener('click', () => {
+        alert('More information about Local Resource Directory coming soon!');
+    });
 
     // Search Form
-    if (searchForm) {
-        searchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            filterResources();
-        });
-    }
+    searchForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        filterResources();
+    });
 
     // Real-time filtering
-    if (searchInput) {
-        searchInput.addEventListener('input', filterResources);
-    }
-    if (categoryFilter) {
-        categoryFilter.addEventListener('change', filterResources);
-    }
+    searchInput?.addEventListener('input', filterResources);
+    categoryFilter?.addEventListener('change', filterResources);
 
     // Registration Form
-    if (registrationForm) {
-        registrationForm.addEventListener('submit', handleRegistration);
-    }
+    registrationForm?.addEventListener('submit', handleRegistration);
 }
 
 // Handle User Registration
@@ -283,10 +266,10 @@ function submitComment(resourceId) {
         return;
     }
 
-    // In a real application, you'd send this to a backend
+    
     const newComment = {
         text: commentText,
-        author: 'Anonymous', // In a real app, this would be the logged-in user
+        author: 'Anonymous',
         date: new Date()
     };
 
@@ -295,7 +278,7 @@ function submitComment(resourceId) {
     const noCommentsElement = commentsList.querySelector('.no-comments');
     
     if (noCommentsElement) {
-        commentsList.innerHTML = ''; // Remove "No comments yet"
+        commentsList.innerHTML = '';
     }
 
     const commentElement = document.createElement('div');
@@ -310,7 +293,7 @@ function submitComment(resourceId) {
 
     commentsList.appendChild(commentElement);
     
-    // Clear the input
+   
     commentInput.value = '';
 }
 
