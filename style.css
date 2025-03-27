@@ -176,41 +176,85 @@ body {
     display: none; 
     justify-content: center; 
     align-items: center; 
+    z-index: 1000; 
 } 
 
 .modal-content { 
     background-color: white; 
-    padding: 30px; 
-    border-radius: 10px; 
+    padding: 40px; 
+    border-radius: 12px; 
     width: 90%; 
     max-width: 500px; 
     position: relative; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+    animation: modalSlideIn 0.3s ease-out; 
 } 
 
 .close-modal { 
     position: absolute; 
-    top: 10px; 
-    right: 10px; 
+    top: 15px; 
+    right: 15px; 
     font-size: 24px; 
     cursor: pointer; 
+    color: var(--secondary-color); 
+    transition: color 0.3s ease; 
 } 
 
-/* Responsive Adjustments */ 
-@media (max-width: 768px) { 
-    .features-grid { 
-        grid-template-columns: repeat(2, 1fr); 
-    } 
-    
-    .search-container { 
-        flex-direction: column; 
-    } 
+.close-modal:hover { 
+    color: var(--primary-color); 
 } 
 
-@media (max-width: 480px) { 
-    .features-grid { 
-        grid-template-columns: 1fr; 
+/* Modal Form Styling */ 
+.modal-content h2 { 
+    color: var(--primary-color); 
+    text-align: center; 
+    margin-bottom: 25px; 
+} 
+
+.modal-content form { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+} 
+
+.modal-content label { 
+    color: var(--text-color); 
+    font-weight: 600; 
+} 
+
+.modal-content input, 
+.modal-content select { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 6px; 
+    font-size: 16px; 
+} 
+
+.modal-content select { 
+    appearance: none; 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M1 4l5 5 5-5' fill='none' stroke='%237fb3c2' stroke-width='2'/%3E%3C/svg%3E"); 
+    background-repeat: no-repeat; 
+    background-position: right 12px center; 
+    background-size: 12px; 
+} 
+
+.modal-content .register-button { 
+    width: 100%; 
+    margin-top: 10px; 
+} 
+
+@keyframes modalSlideIn { 
+    from { 
+        opacity: 0; 
+        transform: translateY(-50px); 
+    } 
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
     } 
 }
+
 .comments-section {
     margin-top: 20px;
     border-top: 1px solid var(--border-color);
@@ -273,4 +317,21 @@ body {
     color: var(--secondary-color);
     font-style: italic;
     text-align: center;
+}
+
+/* Responsive Adjustments */ 
+@media (max-width: 768px) { 
+    .features-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    } 
+    
+    .search-container { 
+        flex-direction: column; 
+    } 
+} 
+
+@media (max-width: 480px) { 
+    .features-grid { 
+        grid-template-columns: 1fr; 
+    } 
 }
